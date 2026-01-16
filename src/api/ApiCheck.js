@@ -1,0 +1,39 @@
+export const checkUrl = async (url, setIsUrlValid, setErrorMessage) => {
+  let id = 0;
+  const suffixArray = ["txt", "xlsx", "pptx", "rtf", "pdf", "jpeg", "gif", "png", "svg", "mp3", "zip", "js", "html", "ts", "css", "env"];
+
+  // Überprüfen, ob die URL existiert
+  fetch(url, {
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Request-Headers": "*",
+      "Access-Control-Request-Method": "*",
+    },
+  })
+    .then(async (res) => {
+      if (res?.status == 0) {
+        let isFile = suffixArray.includes(url.split('.').pop())
+        let letzterString = url.split('/').pop().indexOf('.') > -1;
+        let isOrdner = url.endsWith('/');
+
+        if (letzterString) {
+          if (isFile) id = 2;
+          else id = 3;
+        }
+        else id = 3;
+        const response = await fetch(`http://localhost:3000/data/${id}`)
+        const data = await response?.json();
+        setIsUrlValid(data);
+        return;
+      }
+    })
+    .catch(async (err) => {
+      let id = 1;
+      const response = await fetch(`http://localhost:3000/data/${id}`);
+      const data = await response?.json();
+      setErrorMessage(data.message);
+      setIsUrlValid(data);
+      throw new Error(err);
+    });
+};

@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "id":1,
+      "isValid": "false",
+      "type": "null",
+      "message":"Die URL existiert nicht."
+    },
+    {
+      "id":2,
+      "isValid": "true",
+      "type": "Datei",
+      "message" :"Die URL existiert und es handelt sich um eine Datei."
+    },
+    {
+      "id":3,
+      "isValid": "true",
+      "type": "Ordner",
+      "message":"Die URL existiert und es handelt sich um einen Ordner."
+    }
+  ]}
