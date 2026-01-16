@@ -12,7 +12,7 @@ export const checkUrl = async (url, setIsUrlValid, setErrorMessage) => {
     },
   })
     .then(async (res) => {
-      if (res?.status == 0) {
+      if (res?.status == 0 || res?.status == 200) {
         let isFile = suffixArray.includes(url.split('.').pop())
         let letzterString = url.split('/').pop().indexOf('.') > -1;
         let isOrdner = url.endsWith('/');
