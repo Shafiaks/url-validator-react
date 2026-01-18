@@ -1,9 +1,15 @@
 import jsonServer from 'json-server';
+import cors from 'cors'
 
 const server = jsonServer.create()
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
+server.use(cors({
+  origin: ['https://localhost:5173'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
 // Add custom middleware for CORS
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*'); 
@@ -20,4 +26,4 @@ server.listen(3000, () => {
 });
 
 
-
+// proxy: { "/api/**": { target: 'http://localhost:3000', secure: false }  }
