@@ -9,9 +9,11 @@ export const checkUrl = async (url, setIsUrlValid, setErrorMessage) => {
       "Content-Type": "application/json",
       "Access-Control-Request-Headers": "*",
       "Access-Control-Request-Method": "*",
+      "Access-Control-Allow-Origin": "*"
     },
   })
     .then(async (res) => {
+     
       if (res?.status == 0 || res?.status == 200) {
         let isFile = suffixArray.includes(url.split('.').pop())
         let letzterString = url.split('/').pop().indexOf('.') > -1;
@@ -22,15 +24,16 @@ export const checkUrl = async (url, setIsUrlValid, setErrorMessage) => {
           else id = 3;
         }
         else id = 3;
-        const response = await fetch(`http://localhost:3000/data/${id}`)
+        const response = await fetch(`https://validate-url-data.onrender.com/data/${id}`)    //(`http://localhost:3000/data/${id}`)
         const data = await response?.json();
         setIsUrlValid(data);
         return;
       }
     })
     .catch(async (err) => {
+      console.log("resss err ", err)
       let id = 1;
-      const response = await fetch(`http://localhost:3000/data/${id}`);
+      const response = await fetch(`https://validate-url-data.onrender.com/data/${id}`)     //(`http://localhost:3000/data/${id}`);
       const data = await response?.json();
       setErrorMessage(data.message);
       setIsUrlValid(data);
