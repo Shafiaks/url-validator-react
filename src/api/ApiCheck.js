@@ -1,7 +1,10 @@
-export const checkUrl = async (url, setIsUrlValid, setErrorMessage) => {
-  let id = 0;
-  const suffixArray = ["txt", "xlsx", "pptx", "rtf", "pdf", "jpeg", "gif", "png", "svg", "mp3", "zip", "js", "html", "ts", "css", "env"];
+export const checkUrl = async (url, setIsUrlValid, setErrorMessage, setIsLoading) => {
 
+  let id = 0;
+
+  const suffixArray = ["txt", "xlsx", "pptx", "rtf", "pdf", "jpeg", "gif", "png", "svg", "mp3", "zip", "js", "html", "ts", "css", "env"];
+  
+  setIsLoading(true);
   // Überprüfen, ob die URL existiert
   fetch(url, {
     mode: "no-cors",
@@ -24,7 +27,7 @@ export const checkUrl = async (url, setIsUrlValid, setErrorMessage) => {
           else id = 3;
         }
         else id = 3;
-        const response = await fetch(`https://validate-url-data.onrender.com/data/${id}`)    //(`http://localhost:3000/data/${id}`)
+        const response = await fetch(`https://validate-url-data.onrender.com/data/${id}`)    //(`https://validate-url-data.onrender.com/data/${id}`)
         const data = await response?.json();
         setIsUrlValid(data);
         return;
@@ -33,10 +36,12 @@ export const checkUrl = async (url, setIsUrlValid, setErrorMessage) => {
     .catch(async (err) => {
       console.log("resss err ", err)
       let id = 1;
-      const response = await fetch(`https://validate-url-data.onrender.com/data/${id}`)     //(`http://localhost:3000/data/${id}`);
+      const response = await fetch(`https://validate-url-data.onrender.com/data/${id}`)     //(`https://validate-url-data.onrender.com/data/${id}`);
       const data = await response?.json();
       setErrorMessage(data.message);
       setIsUrlValid(data);
       throw new Error(err);
+    }).finally(()=>{
+      setIsLoading(false);
     });
 };

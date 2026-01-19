@@ -7,6 +7,8 @@ function App() {
   const [isUrlValid, setIsUrlValid] = useState({});
   const [url, setUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
 
   let highNumberOfscheme = 9;
   let validUrlschemes = [
@@ -64,8 +66,9 @@ function App() {
       <Home
         url={url}
         onChange={handleChange}
-        onClick={() => checkUrl(url, setIsUrlValid, setErrorMessage)}
+        onClick={() => checkUrl(url, setIsUrlValid, setErrorMessage,setIsLoading)}
         errorMessage={errorMessage}
+        isLoading={isLoading}
       />
       
       {(errorMessage.length > 0) && (

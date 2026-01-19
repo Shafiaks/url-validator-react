@@ -1,4 +1,4 @@
-const Home = ({ url, onChange, onClick, errorMessage }) => {
+const Home = ({ url, onChange, onClick, errorMessage, isLoading }) => {
   return (
     <>
       <div className="mt-6 mb-4 flex tracking-wide">
@@ -23,7 +23,17 @@ const Home = ({ url, onChange, onClick, errorMessage }) => {
           className="w-md sm:w-auto rounded-md bg-gray-300 h-10 px-6 ml-2 mt-6 text-sm font-semibold leading-6 text-gray-600 disabled:opacity-50"
           onClick={() => onClick()}
         >
-          check
+          {isLoading && (
+            <div
+              className="inline-block h-4 w-4 ml-2 mr-3 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status"
+            >
+              <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                Loading...
+              </span>
+            </div>
+          )}
+          {!isLoading ? "check" : ""}
         </button>
       </div>
     </>
